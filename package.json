@@ -4,6 +4,9 @@
   "workspaces": [
     "looply"
   ],
+  "dependencies": {
+    "next": "^15.0.0"
+  },
   "scripts": {
     "build": "npm run build -w looply",
     "dev": "npm run dev -w looply",
