@@ -113,6 +113,12 @@ prisma/
 - Para producción real en Vercel conviene sustituir la subida local por Cloudinary o S3.
 - Puedes cambiar `DATABASE_URL` a PostgreSQL sin reestructurar la app; Prisma ya está aislado en la capa `lib/queries.ts` y en las rutas API.
 
+### Vercel (monorepo)
+
+La app Next.js vive en `looply/`. Si el **Root Directory** del proyecto en Vercel es la raíz del repositorio (por ejemplo `./`), el build genera `looply/.next`, no `.next` en la raíz. En ese caso el repositorio incluye `vercel.json` en la raíz con `outputDirectory` apuntando a `looply/.next`.
+
+Alternativa recomendada: en Vercel, **Settings → General → Root Directory = `looply`** (sin `./`). Así el directorio de salida por defecto es el `.next` correcto y no hace falta tocar el Output Directory en el panel. No actives override de "Output Directory" salvo que sepas qué ruta necesitas.
+
 ## Verificación recomendada
 
 Después de instalar dependencias:
