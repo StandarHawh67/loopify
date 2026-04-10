@@ -6,7 +6,7 @@ Looply es una red social full-stack construida con Next.js, Prisma y Tailwind CS
 
 - Next.js App Router + React + TypeScript
 - Prisma ORM
-- SQLite por defecto para levantar rápido en local
+- PostgreSQL (recomendado para local y producción/Vercel)
 - JWT en cookie `httpOnly` para autenticación
 - Tailwind CSS para estilos
 - Subida de imágenes a almacenamiento local en `public/uploads`
@@ -33,7 +33,7 @@ npm install
 
 2. Crea tu archivo de entorno a partir de `.env.example`.
 
-3. Crea la base de datos local:
+3. Crea el esquema en tu base de datos:
 
 ```bash
 npm run db:push
@@ -62,7 +62,7 @@ La app quedará disponible en `http://localhost:3000`.
 ## Variables de entorno
 
 ```env
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?schema=public"
 JWT_SECRET="replace-with-a-long-random-secret"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
@@ -78,10 +78,10 @@ Después de ejecutar `npm run db:seed`, puedes entrar con cualquiera de estas cu
 ## Scripts útiles
 
 - `npm run dev` inicia el entorno local
-- `npm run build` genera una build de producción
+- `npm run build` genera una build de producción (incluye `prisma db push`)
 - `npm run start` levanta la build compilada
-- `npm run db:push` sincroniza el esquema Prisma con SQLite
-- `npm run db:init` crea la base SQLite ejecutando `prisma/init.sql`
+- `npm run db:push` sincroniza el esquema Prisma con PostgreSQL
+- `npm run db:init` conserva el fallback histórico de SQLite para local
 - `npm run db:seed` carga datos demo
 - `npm run prisma:generate` regenera el cliente Prisma
 
@@ -111,7 +111,7 @@ prisma/
 
 - En local, las imágenes se guardan en `public/uploads`.
 - Para producción real en Vercel conviene sustituir la subida local por Cloudinary o S3.
-- Puedes cambiar `DATABASE_URL` a PostgreSQL sin reestructurar la app; Prisma ya está aislado en la capa `lib/queries.ts` y en las rutas API.
+- Configura `DATABASE_URL` de PostgreSQL en Vercel para evitar errores 500 en rutas API.
 
 ### Vercel (monorepo)
 
