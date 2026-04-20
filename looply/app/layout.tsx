@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
 
 const bodyFont = DM_Sans({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
           <div className="absolute inset-0 bg-looply-grid bg-[size:28px_28px] opacity-20" />
         </div>
         {children}
+        <Analytics />
       </body>
     </html>
   );
